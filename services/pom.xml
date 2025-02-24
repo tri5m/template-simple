@@ -80,9 +80,9 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.30</version>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.4.0</version>
         </dependency>
 
         <dependency>
@@ -118,6 +118,23 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>cn.xbatis</groupId>
+                <artifactId>xbatis-generator-maven-plugin</artifactId>
+                <version>1.1.1</version>
+                <configuration>
+                    <configurationFile>${project.basedir}/src/main/resources/code_generator.xml</configurationFile>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.mysql</groupId>
+                        <artifactId>mysql-connector-j</artifactId>
+                        <version>8.4.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
         </plugins>
 
         <resources>
