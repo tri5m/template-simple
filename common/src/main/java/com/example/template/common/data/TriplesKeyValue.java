@@ -1,4 +1,4 @@
-package com.example.template.common.util.data;
+package com.example.template.common.data;
 
 import lombok.Getter;
 import lombok.Setter;

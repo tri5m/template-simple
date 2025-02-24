@@ -33,6 +33,18 @@ spring:
     execution:
       pool:
         core-size: 4
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  configuration.map-underscore-to-camel-case: true
+  configuration:
+    databaseId: MYSQL
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    ## log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+tucache:
+  profiles:
+    cache-prefix: "tu_cache:"
 
 springdoc:
   api-docs:
@@ -47,36 +59,3 @@ knife4j:
 
 logging:
   config: classpath:logback-spring.xml
-
-
----
-# dev ###########################
-
-
----
-# test ###########################
-spring:
-  config:
-    activate:
-      on-profile: test
-
----
-# uat ###########################
-spring:
-  config:
-    activate:
-      on-profile: uat
-
----
-# prod ###########################
-spring:
-  config:
-    activate:
-      on-profile: prod
-debug: false
-springdoc:
-  api-docs:
-    enabled: false
-knife4j:
-  enable: false
-  production: true

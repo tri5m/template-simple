@@ -15,14 +15,17 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 /**
- * MD5hash算法加密工具类
+ * MD5hash签名工具类
+ *
+ * @author: trifolium.wang
+ * @date: 2024/9/24
  */
 public class MD5Util {
 
     private static final Logger log = LoggerFactory.getLogger(MD5Util.class);
 
     /**
-     * 获取32位MD5签名字符串
+     * 获取32位MD5签名Hex字符串
      */
     public static String getMD5String(byte[] bytes) {
         try {
@@ -36,7 +39,7 @@ public class MD5Util {
     }
 
     /**
-     * 获取32位MD5摘要
+     * 获取32位MD5摘要Hex字符串
      */
     public static String getMD5String(String str) {
         try {
@@ -50,7 +53,7 @@ public class MD5Util {
     }
 
     /**
-     * 获取16位MD5签名字符串
+     * 获取16位MD5签名Hex字符串
      */
     public static String get16MD5String(String str) {
         String md516 = null;
@@ -70,7 +73,7 @@ public class MD5Util {
     }
 
     /**
-     * 获取32位MD5签名字符串
+     * 获取32位MD5签名Hex字符串
      */
     public static String getMD5String(File file) throws Exception {
         MessageDigest messagedigest = getMessageDigest();
@@ -136,17 +139,17 @@ public class MD5Util {
     /**
      * 校验密码是否正确
      *
-     * @param data     要检测的数据
-     * @param signatur 加密后含随机盐的的密码
+     * @param data      要检测的数据
+     * @param signature 加密后含随机盐的的密码
      * @return 是否一样
      */
-    public static boolean checkSaltMD5(String data, String signatur) {
+    public static boolean checkSaltMD5(String data, String signature) {
         char[] cs1 = new char[32];
         char[] cs2 = new char[16];
         for (int i = 0; i < 48; i += 3) {
-            cs1[i / 3 * 2] = signatur.charAt(i);
-            cs1[i / 3 * 2 + 1] = signatur.charAt(i + 2);
-            cs2[i / 3] = signatur.charAt(i + 1);
+            cs1[i / 3 * 2] = signature.charAt(i);
+            cs1[i / 3 * 2 + 1] = signature.charAt(i + 2);
+            cs2[i / 3] = signature.charAt(i + 1);
         }
         String salt = new String(cs2);
         String res = getMD5String(data + salt);
