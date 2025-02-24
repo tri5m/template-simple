@@ -124,7 +124,7 @@
                 <artifactId>xbatis-generator-maven-plugin</artifactId>
                 <version>1.1.1</version>
                 <configuration>
-                    <configurationFile>${project.basedir}/src/main/resources/code_generator.xml</configurationFile>
+                    <configurationFile>${project.basedir}/src/main/resources/xbatis_generator.xml</configurationFile>
                 </configuration>
                 <dependencies>
                     <dependency>
