@@ -38,6 +38,7 @@
         <packageName>src/main/resources/mappers</packageName>
         <resultMap>true</resultMap>
         <columnList>true</columnList>
+        <suffix>Mapper</suffix>
     </mapperXmlConfig>
 
     <daoConfig>
