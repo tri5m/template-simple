@@ -1,6 +1,9 @@
-package com.example.template.common.request;
+package com.example.template.service.common.request;
 
+import cn.xbatis.core.mybatis.mapper.context.Pager;
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.example.template.common.enumeration.OrderType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +22,7 @@ import javax.validation.constraints.Min;
 @Schema(name = "PageCondition", description = "分页组件请求对象")
 public class PageCondition {
 
-    @Schema(description = "页号", example = "1", type="int")
+    @Schema(description = "页号", example = "1", type = "int")
     @Min(value = 1, message = "页号最小为1")
     private Integer pageIndex = 1;
 
@@ -34,4 +37,11 @@ public class PageCondition {
     @Schema(description = "排序方式", example = "asc,desc", type = "string")
     private OrderType order;
 
+    @JsonIgnore
+    @JSONField(serialize = false, deserialize = false)
+    @com.alibaba.fastjson.annotation.JSONField(serialize = false, deserialize = false)
+    public <T> Pager<T> getPager() {
+
+        return new Pager<>(pageIndex, pageSize);
+    }
 }

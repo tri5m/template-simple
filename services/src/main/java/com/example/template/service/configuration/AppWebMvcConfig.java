@@ -1,11 +1,11 @@
 package com.example.template.service.configuration;
 
 import cn.hutool.core.collection.CollUtil;
-import com.example.template.common.helper.exception.AppException;
+import com.example.template.common.helper.exception.AppBaseException;
 import com.example.template.common.helper.exception.NoAuthException;
 import com.example.template.common.helper.exception.TokenInvalidException;
-import com.example.template.common.response.ResponseResult;
-import com.example.template.common.response.ResultCode;
+import com.example.template.service.common.response.ResponseResult;
+import com.example.template.service.common.response.ResultCode;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.slf4j.Slf4j;
@@ -61,18 +61,16 @@ public class AppWebMvcConfig implements WebMvcConfigurer, ErrorController {
     public ResponseEntity<ResponseResult<Object>> exceptionHandler(Exception exception) {
 
         String message;
-        if (exception instanceof AppException) {
+        if (exception instanceof AppBaseException) {
 
             message = exception.getMessage();
 
             if (exception instanceof TokenInvalidException) {
-                return new ResponseEntity<>(ResponseResult.failure(
-                        message, ResultCode.TOKEN_INVALID.getValue()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseResult.failure(message), HttpStatus.OK);
             }
             if (exception instanceof NoAuthException) {
 
-                return new ResponseEntity<>(ResponseResult.failure(message,
-                        ResultCode.NO_AUTH.getValue()), HttpStatus.OK);
+                return new ResponseEntity<>(ResponseResult.failure(message), HttpStatus.OK);
             }
 
             return new ResponseEntity<>(ResponseResult.failure(message), HttpStatus.OK);
@@ -140,9 +138,9 @@ public class AppWebMvcConfig implements WebMvcConfigurer, ErrorController {
         return null;
     }
 
-    private String illegalRequestException(Exception exception){
+    private String illegalRequestException(Exception exception) {
         // 请求的非法json
-        if(exception instanceof MismatchedInputException mie){
+        if (exception instanceof MismatchedInputException mie) {
             return mie.getMessage();
         }
 
@@ -150,8 +148,7 @@ public class AppWebMvcConfig implements WebMvcConfigurer, ErrorController {
     }
 
 
-    //    private final ServerProperties serverProperties;
-
+    // private final ServerProperties serverProperties;
     protected HttpStatus getStatus(HttpServletRequest request) {
         Integer statusCode = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         if (statusCode == null) {
@@ -164,10 +161,11 @@ public class AppWebMvcConfig implements WebMvcConfigurer, ErrorController {
         }
     }
 
+    // 默认错误页面
     @RequestMapping("${server.error.path:${error.path:/error}}")
     public ResponseResult<Void> errorJson(HttpServletRequest request) {
         HttpStatus status = this.getStatus(request);
 
-        return ResponseResult.failure(status.value() + " " + status.getReasonPhrase(), ResultCode.FAILURE.getValue());
+        return ResponseResult.failure(status.value() + " " + status.getReasonPhrase());
     }
 }

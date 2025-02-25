@@ -1,4 +1,4 @@
-package com.example.template.common.response;
+package com.example.template.service.common.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -70,31 +70,20 @@ public class ResponseResult<T> {
     }
 
     /**
-     * 返回失败的结果
-     */
-    public static <T> ResponseResult<T> failure(String message, int code) {
-        ResponseResult<T> result = new ResponseResult<>();
-        result.setMessage(message);
-        result.setCode(code);
-        result.success = false;
-        return result;
-    }
-
-    /**
      * 异常结果
      */
     public static <T> ResponseResult<T> error(String message) {
         ResponseResult<T> result = new ResponseResult<>();
         result.success = false;
-        result.setCode(ResultCode.EXCEPTION.getValue());
+        result.setCode(ResultCode.EXCEPTION.value);
         result.setMessage(message);
         return result;
     }
 
     /**
-     * 返回异常结果
+     * 返回自定义code结果
      */
-    public static <T> ResponseResult<T> error(String message, int code) {
+    public static <T> ResponseResult<T> of(String message, int code) {
         ResponseResult<T> result = new ResponseResult<>();
         result.setMessage(message);
         result.setCode(code);

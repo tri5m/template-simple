@@ -1,6 +1,6 @@
 package com.example.template.service.controller;
 
-import com.example.template.common.response.ResponseResult;
+import com.example.template.service.common.response.ResponseResult;
 import com.example.template.service.service.TestService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
