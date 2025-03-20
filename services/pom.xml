@@ -14,7 +14,7 @@
     <properties>
         <spring.boot.version>2.7.18</spring.boot.version>
         <knife4j.version>4.5.0</knife4j.version>
-        <xbatis.version>1.8.2</xbatis.version>
+        <xbatis.version>1.8.3</xbatis.version>
         <tucache.version>1.0.5</tucache.version>
     </properties>
 
@@ -122,7 +122,7 @@
             <plugin>
                 <groupId>cn.xbatis</groupId>
                 <artifactId>xbatis-generator-maven-plugin</artifactId>
-                <version>1.1.1</version>
+                <version>1.1.2</version>
                 <configuration>
                     <configurationFile>${project.basedir}/src/main/resources/xbatis_generator.xml</configurationFile>
                 </configuration>
@@ -145,13 +145,15 @@
                 </includes>
                 <filtering>true</filtering>
             </resource>
-            <resource>
+        </resources>
+        <testResources>
+            <testResource>
                 <directory>src/test/resources</directory>
                 <includes>
                     <include>**/*.*</include>
                 </includes>
                 <filtering>true</filtering>
-            </resource>
-        </resources>
+            </testResource>
+        </testResources>
     </build>
 </project>
