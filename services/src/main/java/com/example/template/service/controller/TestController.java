@@ -1,14 +1,16 @@
 package com.example.template.service.controller;
 
+import com.example.template.common.util.JsonUtil;
 import com.example.template.service.common.response.ResponseResult;
 import com.example.template.service.service.TestService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @title: TestController
@@ -18,19 +20,26 @@ import javax.inject.Inject;
 @Tag(name = "test")
 @RestController
 @RequestMapping("/test")
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class TestController {
 
     private final TestService testService;
 
-    @Inject
-    public TestController(TestService testService) {
-        this.testService = testService;
+    @Operation(summary = "测试接口")
+    @GetMapping("/hello")
+    public ResponseResult<Map<String,Object>> sayHello(@RequestHeader Map<String, String> headers, HttpServletRequest request) {
+        System.out.println("get");
+        System.out.println("param:" + JsonUtil.toJson(request.getParameterMap()));
+        System.out.println(JsonUtil.toJson(headers));
+        return ResponseResult.success(JsonUtil.jsonToObjectMap("{\"token\":\"totototoken\", \"token_type\":\"Bbb\"}"));
     }
 
     @Operation(summary = "测试接口")
-    @GetMapping("/hello")
-    public ResponseResult<String> sayHello() {
-
-        return ResponseResult.success(testService.sayHello());
+    @PostMapping("/hello")
+    public ResponseResult<Map<String,Object>> sayHello(@RequestBody String body, @RequestHeader Map<String, String> headers) {
+        System.out.println("post");
+        System.out.println("body:  "+ body);
+        System.out.println(JsonUtil.toJson(headers));
+        return ResponseResult.success(JsonUtil.jsonToObjectMap("{\"token\":\"totototoken\", \"token_type\":\"Bbb\"}"));
     }
 }
