@@ -24,7 +24,7 @@
     </appender>
 
     <!--开发环境:打印控制台-->
-    <springProfile name="dev">
+    <springProfile name="dev,test">
         <logger name="${project.groupId}" level="DEBUG"/>
         <logger name="cn.xbatis" level="DEBUG"/>
         <root level="INFO">
@@ -33,24 +33,7 @@
         </root>
     </springProfile>
 
-    <springProfile name="test">
-        <logger name="${project.groupId}" level="DEBUG"/>
-        <logger name="cn.xbatis" level="DEBUG"/>
-        <root level="INFO">
-            <appender-ref ref="FILE"/>
-            <appender-ref ref="CONSOLE"/>
-        </root>
-    </springProfile>
-
-    <springProfile name="uat">
-        <logger name="${project.groupId}" level="INFO"/>
-        <root level="INFO">
-            <appender-ref ref="FILE"/>
-            <appender-ref ref="CONSOLE"/>
-        </root>
-    </springProfile>
-
-    <springProfile name="prod">
+    <springProfile name="uat,prod">
         <logger name="${project.groupId}" level="INFO"/>
         <root level="INFO">
             <appender-ref ref="FILE"/>
