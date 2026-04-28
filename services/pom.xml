@@ -15,7 +15,7 @@
         <spring.boot.version>2.7.18</spring.boot.version>
         <knife4j.version>4.5.0</knife4j.version>
         <xbatis.version>1.8.3</xbatis.version>
-        <tucache.version>1.0.5</tucache.version>
+        <tucache.version>1.0.6</tucache.version>
     </properties>
 
     <dependencies>
